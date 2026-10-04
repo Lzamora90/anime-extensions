@@ -1,3 +1,4 @@
+
 package eu.kanade.tachiyomi.animeextension.es.animeav1
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilter
@@ -55,7 +56,7 @@ object AnimeAv1Filters {
     }
 
     val FILTER_LIST get() = AnimeFilterList(
-        AnimeFilter.Header("La busqueda por texto ignora el filtro"),
+        AnimeFilter.Header("La búsqueda por texto ignora el filtro"),
         TypesFilter(),
         GenresFilter(),
         StateFilter(),
