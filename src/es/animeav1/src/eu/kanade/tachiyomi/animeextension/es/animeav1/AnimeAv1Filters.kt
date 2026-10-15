@@ -3,6 +3,7 @@ package eu.kanade.tachiyomi.animeextension.es.animeav1
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilter
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
+import keiyoushi.utils.firstInstance
 
 object AnimeAv1Filters {
     open class QueryPartFilter(displayName: String, val vals: Array<Pair<String, String>>) :
@@ -20,7 +21,7 @@ object AnimeAv1Filters {
     private inline fun <reified R> AnimeFilterList.parseCheckbox(
         options: Array<Pair<String, String>>,
         name: String,
-    ): String = (this.getFirst<R>() as CheckBoxFilterList).state
+    ): String = (firstInstance<R>() as CheckBoxFilterList).state
         .mapNotNull { checkbox ->
             if (checkbox.state) {
                 options.find { it.first == checkbox.name }!!.second
@@ -35,9 +36,7 @@ object AnimeAv1Filters {
             }
         }
 
-    private inline fun <reified R> AnimeFilterList.asQueryPart(name: String): String = (this.getFirst<R>() as QueryPartFilter).toQueryPart(name)
-
-    private inline fun <reified R> AnimeFilterList.getFirst(): R = this.filterIsInstance<R>().first()
+    private inline fun <reified R> AnimeFilterList.asQueryPart(name: String): String = (firstInstance<R>() as QueryPartFilter).toQueryPart(name)
 
     private fun String.changePrefix() = this.takeIf { it.startsWith("&") }?.let { this.replaceFirst("&", "?") } ?: run { this }
 
